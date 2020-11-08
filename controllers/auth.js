@@ -10,6 +10,7 @@ exports.signup = (req, res) => {
   }
 
   const user = new User(req.body);
+  console.log(user);
 
   user.save((err, user) => {
     if (err) {
@@ -30,6 +31,7 @@ exports.signin = (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array()[0].msg });
   }
+
   const { email, password } = req.body;
   User.findOne({ email: email }, (err, user) => {
     if (err || !user) {
@@ -74,20 +76,21 @@ exports.isSignedIn = expressJwt({
 
 // custom controllers
 exports.isAuthenticated = (req, res, next) => {
-  const checker = req.profile && req.auth && req.profile._id === req.auth._id;
+  let checker = req.profile && req.auth && req.profile._id == req.auth._id;
+
   if (!checker) {
     return res.status(403).json({
-      msg: "Access DENIDE",
+      msg: "ACCESS DENIED",
     });
-    next();
   }
+  next();
 };
 
 exports.isAdmin = (req, res, next) => {
   if (req.profile.role == 0) {
-    return res.status.json({
-      msg: "You are not admin, access DENIDE",
+    return res.status(403).json({
+      msg: "You are not admin, access DENIED",
     });
-    next();
   }
+  next();
 };

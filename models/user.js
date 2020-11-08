@@ -66,7 +66,6 @@ userSchema.methods = {
         .createHmac("sha256", this.salt)
         .update(plainpassword)
         .digest("hex");
-      console.log(hash);
     } catch (err) {
       return "";
     }

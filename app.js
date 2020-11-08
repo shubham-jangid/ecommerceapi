@@ -9,6 +9,8 @@ const cors = require("cors");
 //importing routes
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/user");
+const categoryRoute = require("./routes/category");
+const productRoute = require("./routes/product");
 
 const app = express();
 
@@ -31,13 +33,11 @@ mongoose
     Console.log("DB OOOPS");
   });
 
-app.get("/", (req, res) => {
-  res.send("djklfj");
-});
-
 // Routing
 app.use("/api", authRoute);
 app.use("/api", userRoute);
+app.use("/api", categoryRoute);
+app.use("/api", productRoute);
 
 //Setting the PORT
 const port = process.env.PORT || 8000;
