@@ -6,6 +6,7 @@ const productCartSchema = new mongoose.Schema({
     type: ObjectId,
     ref: "Product",
   },
+
   count: Number,
   price: Number,
   name: String,
@@ -17,9 +18,14 @@ const orderSchema = new mongoose.Schema(
   {
     product: [productCartSchema],
     transaction_id: {},
-    amount: { type: Number },
+    amount: Number,
     address: String,
     updated: Date,
+    status: {
+      type: String,
+      default: "Recieved",
+      enum: ["Recieved", "Processing", "Shipped", "Delivered", "Cancelled"],
+    },
     user: {
       type: ObjectId,
       ref: "User",

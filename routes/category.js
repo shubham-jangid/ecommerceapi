@@ -17,14 +17,14 @@ router.param("userId", getUserById);
 router.param("categoryId", getCategoryId);
 
 router.post(
-  "/:userId/category/create/",
+  "/:userId/category/create",
   isSignedIn,
   isAuthenticated,
   isAdmin,
   createCategory
 );
 router.get(
-  "/:userId/getAllCategories/",
+  "/:userId/getAllCategories",
   isSignedIn,
   isAuthenticated,
   getAllCategories

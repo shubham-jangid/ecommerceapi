@@ -10,12 +10,12 @@ exports.signup = (req, res) => {
   }
 
   const user = new User(req.body);
-  console.log(user);
+  // console.log(req.body);
 
   user.save((err, user) => {
     if (err) {
       return res.status(400).json({
-        err: " NOT able to register the user",
+        error: " NOT able to register the user",
       });
     }
     res.json({
@@ -29,14 +29,15 @@ exports.signup = (req, res) => {
 exports.signin = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array()[0].msg });
+    return res.status(400).json({ error: errors.array()[0].msg });
   }
 
   const { email, password } = req.body;
+
   User.findOne({ email: email }, (err, user) => {
     if (err || !user) {
       return res.status(401).json({
-        err: "USER with this email doesn't exist",
+        error: "USER with this email doesn't exist",
       });
     }
 
